@@ -67,3 +67,153 @@ const Header = ({ darkMode, toggledarkmode }) => {
 ```js
 <header className="bg-white dark:bg-[#666666]">
 ```
+
+## Contact Form with Validation
+
+```js
+import React, { useState, useEffect } from "react";
+
+const RegisterForm = () => {
+  const validateForm = () => {
+    const tabs = document.getElementsByClassName("tab");
+    const inputs = tabs[currentTab].getElementsByTagName("input");
+    let valid = true;
+
+    // Clear all existing error messages
+    const errorMessages = document.getElementsByClassName("error-message");
+    for (let i = 0; i < errorMessages.length; i++) {
+      errorMessages[i].innerText = "";
+    }
+
+    // Validate each input field
+    for (let i = 0; i < inputs.length; i++) {
+      const fieldName = inputs[i].getAttribute("name");
+      const errorElement = document.getElementById(`${fieldName}-error`);
+      if (inputs[i].value === "") {
+        if (errorElement) {
+          errorElement.innerText = "This field is required.";
+        }
+        inputs[i].classList.add("invalid-field"); // Apply invalid-field class
+        valid = false;
+      } else if (errorElement) {
+        errorElement.innerText = ""; // Clear error message if field is not empty and error element exists
+        inputs[i].classList.remove("invalid-field"); // Remove invalid-field class
+      }
+    }
+
+    // Hide the error message if the form is valid
+    if (valid) {
+      const errorMessage = document.getElementById("errorMessage");
+      errorMessage.style.display = "none";
+    }
+
+    return valid;
+  };
+
+  const patterns = {
+    username: /^[a-z\d]{5,12}$/i,
+    dni: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  };
+
+  useEffect(() => {
+    const inputs = document.querySelectorAll("input");
+
+    // attach keyup events to inputs
+    inputs.forEach((input) => {
+      input.addEventListener("keyup", (e) => {
+        validate(e.target, patterns[e.target.attributes.name.value]);
+      });
+    });
+  }, []);
+
+  // validation function
+  function validate(field, regex) {
+    if (regex.test(field.value)) {
+      field.className = "valid";
+    } else {
+      field.className = "invalid";
+    }
+  }
+
+  return (
+    <>
+      <div></div>
+      <form id="regForm" action="/action_page.php">
+        <div className="tab">
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            className=" block px-8 py-4  mx-auto my-8 w-full box-border rounded-lg border-2 border-[#ccc] outline-none"
+          />
+
+          <p>Username must be and contain 5 - 12 characters</p>
+
+          <input
+            type="password"
+            name="dni"
+            placeholder="Password"
+            className=" form_input block px-8 py-4  mx-auto my-8 w-full box-border rounded-lg border-2  border-[#ccc] outline-none"
+          />
+          <p>
+            Minimum eight characters, at least one uppercase letter, one
+            lowercase letter, one number and one special character:
+          </p>
+        </div>
+      </form>
+    </>
+  );
+};
+
+export default RegisterForm;
+
+
+
+//  CSS
+
+.tab input{
+  background-color: transparent;
+  color: black;
+  display: block;
+  padding: 8px 16px;
+  font-size: 2em;
+  margin: 10px auto;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 3px solid #ccc;
+  outline: none !important;
+}
+
+/* validation styles */
+
+input.valid{
+  border-color:rgb(51, 255, 0);
+}
+
+input.invalid{
+  border-color: red;
+}
+
+input + p{
+  font-family: arial;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 10px;
+  color: orange;
+  opacity: 0;
+  height: 0;
+}
+
+input.invalid + p{
+  opacity: 1;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+#errorMessage{
+  color: red;
+  display: none;
+}
+```
