@@ -3,10 +3,19 @@
 ## Input Type Number allowed e,E,+,-,* 
 - " <input type="number" onKeyDown={(e) =>["e", "E", "+", "-"].includes(e.key) && e.preventDefault()} /> "
 - oninput="validity.valid||(value='');
+  
 
 
 ## Dark Mode Implementation 
-- **Step - 1 Add Dark Mode Function.**
+- **Step - 1 Add Darkmode selector in tailwind.config.js**
+  
+```js
+module.exports = {
+  darkMode: 'selector',
+  // ...
+}
+```
+- **Step - 2 Add Dark Mode Function.**
 ```js
 const [darkMode, setDarkmode] = useState(false);
 
@@ -14,17 +23,17 @@ const [darkMode, setDarkmode] = useState(false);
     setDarkmode(!darkMode);
   }
   ```
-- **Step-2 Add Class in Main HTML.**
+- **Step - 3 Add Class in Main HTML.**
 ```js
  <html lang="en" className={`${darkMode && "dark"}`} >
 ```
 
-- **Step-3 Pass parameters to toggle button section.**
+- **Step - 4 Pass parameters to toggle button section.**
 ```js
  <Header darkMode={darkMode} toggledarkmode={toggledarkmode} />
 ```
 
-- **Step-4 Get Props Header so that toggle button can use it.**
+- **Step - 5 Get Props in Header so that toggle button can use it.**
 
 ```js
 const Header = ({ darkMode, toggledarkmode }) => {
@@ -32,7 +41,7 @@ const Header = ({ darkMode, toggledarkmode }) => {
 };
 ```
 
-- **Step-5 Add a Dark Mode Toggle Button.**
+- **Step - 6 Add a Dark Mode Toggle Button.**
 ```js
 <button onClick={toggledarkmode} className='hover:scale-110 sm:m-4'>
         {darkMode ?
@@ -54,7 +63,7 @@ const Header = ({ darkMode, toggledarkmode }) => {
         }
       </button>
 ```
-- **Step-6 Add a Dark Class wherever needed.**
+- **Step - 7 Add a Dark Class wherever needed.**
 ```js
 <header className="bg-white dark:bg-[#666666]">
 ```
