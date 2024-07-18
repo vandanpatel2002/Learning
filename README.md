@@ -217,3 +217,39 @@ input.invalid + p{
   display: none;
 }
 ```
+
+
+## Responsive Container CSS
+
+```
+.header_container {
+    @media (min-width: 576px) {
+        max-width: 540px;
+    }
+    @media (min-width: 768px) {
+        max-width: 720px;
+    }
+    @media (min-width: 992px) {
+        max-width: 960px;
+    }
+    @media (min-width: 1200px) {
+        max-width: 1140px;
+    }
+    @media (min-width: 1400px) {
+        max-width: 1320px;
+    }
+    @media (min-width: 1500px) {
+        max-width: 1440px;
+    }
+    @media (min-width: 1600px) {
+      max-width: 1680px;
+    }
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+```
