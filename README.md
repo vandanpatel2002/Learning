@@ -253,3 +253,32 @@ input.invalid + p{
     padding-bottom: 15px;
   }
 ```
+
+
+
+## How to include Font Family in using Tailwind CSS
+
+- **Step 1. Create font-face for your font-family in global.css**
+```css
+@font-face {
+  font-family: "";
+  src: url(./fonts/PlaywriteBEVLG-VariableFont_wght.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+```
+
+- **Step 2. Define your Font-Family in tailwind.config.js**
+```css
+theme: {
+  fontFamily: {
+    sedansc: ["SedanSC", "sans-serif"],
+    playwriteBEVLG: ["PlaywriteBEVLG", "sans-serif"],
+  },
+},
+```
+
+- **Step 3. Use it wherever you want** 
+```js
+<div className="font-playwriteBEVLG">
+```
